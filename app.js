@@ -1,12 +1,12 @@
-// Real-time Voice Translator - JavaScript
+// リアルタイム音声翻訳 - JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Default API Keys
+    // デフォルトAPIキー
     const DEFAULT_OPENAI_API_KEY = '';
     
-    // API Key storage
+    // APIキー保存
     let OPENAI_API_KEY = '';
     
-    // DOM Elements
+    // DOM要素
     const startJapaneseBtn = document.getElementById('startJapaneseBtn');
     const startEnglishBtn = document.getElementById('startEnglishBtn');
     const stopBtn = document.getElementById('stopBtn');
@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const fontSizeLargeBtn = document.getElementById('fontSizeLarge');
     const fontSizeXLargeBtn = document.getElementById('fontSizeXLarge');
     
-    // Speech recognition variables
+    // 音声認識変数
     let recognition = null;
     let isRecording = false;
     let currentTranslationController = null;
     let translationInProgress = false;
-    let selectedLanguage = ''; // 'ja' for Japanese, 'en' for English
+    let selectedLanguage = ''; // 'ja' は日本語、'en' は英語
     let lastTranslationTime = 0;
     
     // 重複防止のための変数
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Load API keys
+    // APIキー読み込み
     function loadApiKeys() {
         const storedOpenaiKey = localStorage.getItem('translatorOpenaiKey');
         
@@ -106,12 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Save API keys
+    // APIキー保存
     saveApiKeysBtn.addEventListener('click', () => {
         const openaiKey = openaiKeyInput.value.trim();
         
         if (!openaiKey) {
-            alert('Please enter your OpenAI API key.');
+            alert('OpenAI APIキーを入力してください。');
             return;
         }
         
@@ -124,21 +124,21 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeApp();
     });
     
-    // Open settings modal
+    // 設定モーダルを開く
     settingsButton.addEventListener('click', () => {
         openaiKeyInput.value = OPENAI_API_KEY;
         apiModal.style.display = 'flex';
     });
     
-    // Reset API keys
+    // APIキーリセット
     resetKeysBtn.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset your API key?')) {
+        if (confirm('APIキーをリセットしますか？')) {
             localStorage.removeItem('translatorOpenaiKey');
             location.reload();
         }
     });
     
-    // Close modal when clicking outside
+    // モーダル外クリックで閉じる
     apiModal.addEventListener('click', (e) => {
         if (e.target === apiModal) {
             apiModal.style.display = 'none';
@@ -159,23 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('translatorFontSize', size);
     }
     
-    // Initialize the app
+    // アプリの初期化
     function initializeApp() {
-        // Clear any previous error messages
+        // エラーメッセージをクリア
         errorMessage.textContent = '';
         
-        // Check if Web Speech API is supported
+        // Web Speech APIのサポート確認
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             setupSpeechRecognition();
         } else {
-            status.textContent = 'Speech recognition not supported in this browser.';
+            status.textContent = 'このブラウザは音声認識に対応していません。';
             status.classList.remove('idle');
             status.classList.add('error');
-            errorMessage.textContent = 'Your browser does not support speech recognition. Please try using Chrome, Safari or Edge.';
+            errorMessage.textContent = 'ブラウザが音声認識に対応していません。Chrome、Safari、またはEdgeをお使いください。';
             return;
         }
         
-        // Enable language buttons
+        // 言語ボタンを有効化
         startJapaneseBtn.addEventListener('click', () => startRecording('ja'));
         startEnglishBtn.addEventListener('click', () => startRecording('en'));
         stopBtn.addEventListener('click', stopRecording);
@@ -191,20 +191,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedFontSize = localStorage.getItem('translatorFontSize') || 'medium';
         changeFontSize(savedFontSize);
         
-        // Translation system prompt
-        window.SYSTEM_PROMPT = `You are a professional simultaneous interpreter with expertise in Japanese and English. 
-Your task is to transform and translate the audio input data into readable text according to these rules:
+        // 翻訳システムプロンプト
+        window.SYSTEM_PROMPT = `あなたは日本語と英語の専門的な同時通訳者です。
+音声入力データを以下のルールに従って読みやすいテキストに変換して翻訳してください：
 
-1. If the source text is Japanese, translate it to English.
-2. If the source text is English, translate it to Japanese.
-3. Remove fillers (um, uh, etc.) and redundant expressions.
-4. When there is missing data, supplement based on context.
-5. Preserve specialized terms, names, and cultural references accurately.
-6. Make the output natural and conversational.
-7. Respond ONLY with the translation, no explanations.`;
+1. 元のテキストが日本語の場合は英語に翻訳する。
+2. 元のテキストが英語の場合は日本語に翻訳する。
+3. 「えー」「うー」などのフィラーや冗長な表現は除去する。
+4. データが不足している場合は文脈に基づいて補完する。
+5. 専門用語、固有名詞、文化的な言及は正確に保持する。
+6. 出力は自然で会話的にする。
+7. 翻訳のみを出力し、説明は含めない。`;
     }
     
-    // Reset content button function
+    // コンテンツリセット機能
     function resetContent() {
         // リセット処理
         processedResultIds.clear();
@@ -213,24 +213,24 @@ Your task is to transform and translate the audio input data into readable text 
         translatedText.textContent = '';
         
         // ステータス表示も更新
-        status.textContent = 'Ready';
+        status.textContent = '待機中';
         status.classList.remove('recording', 'processing', 'error');
         status.classList.add('idle');
         
         errorMessage.textContent = '';
         
-        console.log('Content reset completed');
+        console.log('コンテンツリセット完了');
     }
     
-    // Set up speech recognition
+    // 音声認識の設定
     function setupSpeechRecognition() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         
         if (!SpeechRecognition) {
-            status.textContent = 'Speech recognition not supported in this browser.';
+            status.textContent = 'このブラウザは音声認識に対応していません。';
             status.classList.remove('idle');
             status.classList.add('error');
-            errorMessage.textContent = 'Your browser does not support speech recognition. Please try using Chrome, Safari or Edge.';
+            errorMessage.textContent = 'ブラウザが音声認識に対応していません。Chrome、Safari、またはEdgeをお使いください。';
             return;
         }
         
@@ -240,20 +240,20 @@ Your task is to transform and translate the audio input data into readable text 
         recognition.maxAlternatives = 1;
         
         recognition.onstart = function() {
-            console.log('Speech recognition started with language:', recognition.lang);
+            console.log('音声認識開始。言語:', recognition.lang);
             listeningIndicator.classList.add('visible');
         };
         
         recognition.onend = function() {
-            console.log('Speech recognition ended');
+            console.log('音声認識終了');
             listeningIndicator.classList.remove('visible');
             
-            // If we're supposed to be recording, restart recognition
+            // 録音中の場合は再開
             if (isRecording) {
                 try {
                     recognition.start();
                 } catch (e) {
-                    console.error('Failed to restart recognition', e);
+                    console.error('音声認識の再開に失敗', e);
                 }
             }
         };
@@ -305,11 +305,11 @@ Your task is to transform and translate the audio input data into readable text 
             
             // 言語インジケータを更新
             if (selectedLanguage === 'ja') {
-                sourceLanguage.textContent = 'Japanese';
-                targetLanguage.textContent = 'English';
+                sourceLanguage.textContent = '日本語';
+                targetLanguage.textContent = '英語';
             } else {
-                sourceLanguage.textContent = 'English';
-                targetLanguage.textContent = 'Japanese';
+                sourceLanguage.textContent = '英語';
+                targetLanguage.textContent = '日本語';
             }
             
             // 新しいコンテンツがある場合、翻訳をトリガー
@@ -324,30 +324,30 @@ Your task is to transform and translate the audio input data into readable text 
         };
         
         recognition.onerror = function(event) {
-            console.error('Recognition error', event.error);
+            console.error('音声認識エラー', event.error);
             
             if (event.error === 'no-speech') {
-                // No speech detected - this is normal
+                // 音声が検出されない - 正常な状態
             } else if (event.error === 'audio-capture') {
-                status.textContent = 'No microphone detected';
+                status.textContent = 'マイクが検出されません';
                 status.classList.remove('idle', 'recording');
                 status.classList.add('error');
-                errorMessage.textContent = 'Could not detect a microphone. Please check your device settings.';
+                errorMessage.textContent = 'マイクが検出できません。デバイス設定を確認してください。';
                 stopRecording();
             } else if (event.error === 'not-allowed') {
-                status.textContent = 'Microphone permission denied';
+                status.textContent = 'マイク権限が拒否されています';
                 status.classList.remove('idle', 'recording');
                 status.classList.add('error');
-                errorMessage.textContent = 'Microphone access was denied. Please allow microphone access in your browser settings.';
+                errorMessage.textContent = 'マイクアクセスが拒否されました。ブラウザ設定でマイク権限を許可してください。';
                 stopRecording();
             }
         };
     }
     
-    // Toggle button visibility for recording state
+    // 録音状態のボタン表示切り替え
     function updateButtonVisibility(isRecordingState) {
         if (isRecordingState) {
-            // Hide start buttons, show stop button
+            // 開始ボタンを非表示、停止ボタンを表示
             startJapaneseBtn.style.display = 'none';
             startEnglishBtn.style.display = 'none';
             stopBtn.style.display = 'flex';
@@ -355,7 +355,7 @@ Your task is to transform and translate the audio input data into readable text 
             resetBtn.disabled = true; // 録音中はリセット無効化
             resetBtn.style.opacity = '0.5';
         } else {
-            // Show start buttons, hide stop button
+            // 開始ボタンを表示、停止ボタンを非表示
             startJapaneseBtn.style.display = 'flex';
             startEnglishBtn.style.display = 'flex';
             startJapaneseBtn.disabled = false;
@@ -367,83 +367,83 @@ Your task is to transform and translate the audio input data into readable text 
         }
     }
     
-    // Start recording with specified language
+    // 指定された言語で録音開始
     async function startRecording(language) {
-        // Clear any previous error messages
+        // エラーメッセージをクリア
         errorMessage.textContent = '';
         
-        // Set the selected language
+        // 選択言語を設定
         selectedLanguage = language;
         
-        // Reset UI and variables
+        // UIと変数をリセット
         processedResultIds.clear();
         lastTranslatedText = '';
         originalText.textContent = '';
         translatedText.textContent = '';
         
-        // Update language indicators
+        // 言語インジケータを更新
         if (language === 'ja') {
-            sourceLanguage.textContent = 'Japanese';
-            targetLanguage.textContent = 'English';
+            sourceLanguage.textContent = '日本語';
+            targetLanguage.textContent = '英語';
         } else {
-            sourceLanguage.textContent = 'English';
-            targetLanguage.textContent = 'Japanese';
+            sourceLanguage.textContent = '英語';
+            targetLanguage.textContent = '日本語';
         }
         
-        // Update UI
+        // UIを更新
         isRecording = true;
         document.body.classList.add('recording');
-        status.textContent = 'Recording';
+        status.textContent = '録音中';
         status.classList.remove('idle', 'error');
         status.classList.add('recording');
         
-        // Update button visibility - hide start buttons, show stop button
+        // ボタン表示を更新 - 開始ボタンを非表示、停止ボタンを表示
         updateButtonVisibility(true);
         
-        // Using Web Speech API with explicitly set language
+        // Web Speech APIを使用して言語を明示的に設定
         try {
-            // Set the language for recognition
+            // 認識言語を設定
             recognition.lang = language === 'ja' ? 'ja-JP' : 'en-US';
             recognition.start();
         } catch (e) {
-            console.error('Error starting recognition', e);
-            errorMessage.textContent = 'Failed to start speech recognition: ' + e.message;
+            console.error('音声認識開始エラー', e);
+            errorMessage.textContent = '音声認識の開始に失敗しました: ' + e.message;
             stopRecording();
         }
     }
     
-    // Stop recording
+    // 録音停止
     function stopRecording() {
         isRecording = false;
         document.body.classList.remove('recording');
-        status.textContent = 'Processing';
+        status.textContent = '処理中';
         status.classList.remove('recording');
         status.classList.add('processing');
         
-        // Update button visibility - show start buttons, hide stop button
+        // ボタン表示を更新 - 開始ボタンを表示、停止ボタンを非表示
         updateButtonVisibility(false);
         
         try {
             recognition.stop();
         } catch (e) {
-            console.error('Error stopping recognition', e);
+            console.error('音声認識停止エラー', e);
         }
         
-        // Update status after processing
+        // 処理完了後にステータスを更新
         setTimeout(() => {
-            status.textContent = 'Ready';
+            status.textContent = '待機中';
             status.classList.remove('processing');
             status.classList.add('idle');
         }, 1000);
         
-        console.log('Recording stopped');
+        console.log('録音停止');
     }
     
-    // Translate text using OpenAI API with o3-mini model
+    // OpenAI API（o3-miniモデル）を使用してテキストを翻訳
     async function translateText(text) {
         // 翻訳処理の実行条件をチェック
         if (!text || !text.trim()) {
-            console.log('Translation skipped: empty text');
+            console.log('翻訳スキップ: 空のテキスト');
             return;
         }
         
@@ -460,22 +460,22 @@ Your task is to transform and translate the audio input data into readable text 
         lastTranslationTime = Date.now();
         translatingIndicator.classList.add('visible');
         
-        // Clear any previous error messages
+        // エラーメッセージをクリア
         errorMessage.textContent = '';
         
         try {
-            // Determine source language based on the selected language button
-            const sourceLanguageStr = selectedLanguage === 'ja' ? 'Japanese' : 'English';
+            // 選択された言語ボタンに基づいて元言語を決定
+            const sourceLanguageStr = selectedLanguage === 'ja' ? '日本語' : '英語';
             
-            // Create new abort controller
+            // 新しいAbortControllerを作成
             currentTranslationController = new AbortController();
             const signal = currentTranslationController.signal;
             
-            console.log(`Translating text (${text.length} chars): "${text.substring(0, 30)}..."`);
+            console.log(`テキスト翻訳中 (${text.length} 文字): "${text.substring(0, 30)}..."`);
             
-            // Create OpenAI request with o3-mini model
+            // o3-miniモデルを使用したOpenAIリクエストを作成
             const translationPayload = {
-                model: "o3-mini",  // specifically using o3-mini as required
+                model: "o3-mini",  // 仕様に基づきo3-miniを使用
                 messages: [
                     {
                         role: "developer",
@@ -483,16 +483,16 @@ Your task is to transform and translate the audio input data into readable text 
                     },
                     {
                         role: "user",
-                        content: `Translate this ${sourceLanguageStr} text:\n\n${text}`
+                        content: `以下の${sourceLanguageStr}テキストを翻訳してください:\n\n${text}`
                     }
                 ],
-                stream: true,  // Enable streaming for real-time response
+                stream: true,  // リアルタイムレスポンスのためストリーミングを有効化
                 reasoning_effort: "medium"  // 翻訳精度とリアルタイム性のバランス
             };
             
-            console.log('Sending translation request to OpenAI API...');
+            console.log('OpenAI APIに翻訳リクエストを送信中...');
             
-            // Request translation
+            // 翻訳リクエスト
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -508,16 +508,16 @@ Your task is to transform and translate the audio input data into readable text 
                 try {
                     errorData = await response.json();
                 } catch (e) {
-                    errorData = { error: { message: `HTTP error: ${response.status}` } };
+                    errorData = { error: { message: `HTTPエラー: ${response.status}` } };
                 }
                 
-                console.error('OpenAI API error:', errorData);
-                throw new Error(errorData.error?.message || `OpenAI API returned status: ${response.status}`);
+                console.error('OpenAI APIエラー:', errorData);
+                throw new Error(errorData.error?.message || `OpenAI APIがステータスを返しました: ${response.status}`);
             }
             
-            console.log('Translation stream started');
+            console.log('翻訳ストリーム開始');
             
-            // Process the streaming response
+            // ストリーミングレスポンスを処理
             const reader = response.body.getReader();
             const decoder = new TextDecoder('utf-8');
             let translationResult = '';
@@ -529,10 +529,10 @@ Your task is to transform and translate the audio input data into readable text 
                 const { done, value } = await reader.read();
                 if (done) break;
                 
-                // Decode the chunk
+                // チャンクをデコード
                 const chunk = decoder.decode(value);
                 
-                // Process each line from the chunk
+                // チャンクから各行を処理
                 const lines = chunk.split('\n');
                 for (const line of lines) {
                     if (line.startsWith('data: ') && line !== 'data: [DONE]') {
@@ -544,26 +544,26 @@ Your task is to transform and translate the audio input data into readable text 
                                 translatedText.textContent = translationResult;
                             }
                         } catch (e) {
-                            console.error('Error parsing streaming response:', e);
+                            console.error('ストリーミングレスポンス解析エラー:', e);
                         }
                     }
                 }
             }
             
-            console.log('Translation completed successfully');
+            console.log('翻訳完了');
             
-            // Ensure the current controller is reset
+            // 現在のコントローラーをリセット
             currentTranslationController = null;
             
         } catch (error) {
-            // Ignore abort errors
+            // 中断エラーは無視
             if (error.name === 'AbortError') {
-                console.log('Translation request aborted');
+                console.log('翻訳リクエストが中断されました');
             } else {
-                console.error('Translation error:', error);
+                console.error('翻訳エラー:', error);
                 errorMessage.textContent = error.message;
                 if (translatedText.textContent === '') {
-                    translatedText.textContent = '(Translation error - please try again)';
+                    translatedText.textContent = '(翻訳エラー - 再度お試しください)';
                 }
             }
         } finally {
@@ -572,6 +572,6 @@ Your task is to transform and translate the audio input data into readable text 
         }
     }
     
-    // Initialize the app
+    // アプリ初期化
     loadApiKeys();
 });
