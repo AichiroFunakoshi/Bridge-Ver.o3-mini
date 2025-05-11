@@ -1,7 +1,7 @@
 {
-  "name": "Real-time Voice Translator Mobile",
-  "short_name": "Voice Translator",
-  "description": "Translate speech in real-time between English and Japanese - Mobile Optimized Version",
+  "name": "リアルタイム音声翻訳 - モバイル版",
+  "short_name": "音声翻訳",
+  "description": "日本語と英語間のリアルタイム音声翻訳 - モバイル最適化版",
   "icons": [
     {
       "src": "images/icons/icon-120x120.png",
@@ -46,5 +46,5 @@
   "theme_color": "#1a73e8",
   "orientation": "portrait",
   "categories": ["utilities", "productivity", "translator"],
-  "lang": "en"
+  "lang": "ja"
 }
