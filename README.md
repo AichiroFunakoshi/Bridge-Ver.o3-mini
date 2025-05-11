@@ -1,73 +1,71 @@
-# Real-time Voice Translator - Mobile Version
+# リアルタイム音声翻訳アプリ - モバイル版
 
-![Real-time Voice Translator Mobile](images/icons/icon-192x192.png)
+![リアルタイム音声翻訳アプリ モバイル版](images/icons/icon-192x192.png)
 
-A progressive web application (PWA) optimized for mobile devices that provides real-time speech translation between Japanese and English. This is a mobile-optimized version of the original Real-time Voice Translator.
+スマートフォンやタブレット向けに最適化された、日本語と英語間のリアルタイム音声翻訳を行うプログレッシブウェブアプリケーション（PWA）です。これは元のリアルタイム音声翻訳アプリのモバイル最適化版です。
 
-## Features
+## 特徴
 
-- **Mobile-First Design**: Fully optimized for smartphones and tablets
-- **Real-time Voice Translation**: Instantly translate spoken Japanese to English or English to Japanese
-- **Progressive Web App (PWA)**: Install on your home screen for app-like experience
-- **Streaming Responses**: See translations appear as you speak with minimal delay
-- **Language Selection**: Explicitly choose your input language for improved accuracy
-- **Adjustable Font Sizes**: Multiple font size options for better readability on mobile devices
-- **Offline Capability**: Install as a PWA for quick access even with limited connectivity
-- **Touch-Optimized Interface**: Large buttons and touch-friendly controls
+- **モバイルファーストデザイン**: スマートフォンやタブレットに完全対応
+- **リアルタイム音声翻訳**: 日本語から英語、英語から日本語への即時翻訳
+- **プログレッシブウェブアプリ（PWA）**: ホーム画面に追加してアプリのように使える
+- **ストリーミングレスポンス**: 話しながら翻訳結果がリアルタイムで表示
+- **言語選択機能**: 入力言語を明示的に選択して認識精度を向上
+- **調整可能なフォントサイズ**: モバイルデバイスでの読みやすさを重視した複数のフォントサイズ
+- **オフライン機能**: PWAとしてインストールすれば通信状況が悪くても素早くアクセス可能
+- **タッチ最適化インターフェース**: 大きなボタンとタッチ操作に適したコントロール
 
-## Demo
+## デモ
 
-[View Live Demo](https://your-deployment-url-here)
+[ライブデモを見る](https://aichiroFunakoshi.github.io/voice-translator-mobile/)
 
-![App Screenshot](screenshot-mobile.png)
+## 使用技術
 
-## Technologies Used
+- **Web Speech API**: リアルタイム音声処理のためのブラウザネイティブ音声認識
+- **OpenAI API**: 高品質な翻訳のためのo3-miniモデルを使用
+- **Fetch Streaming**: リアルタイム翻訳出力のためのストリーミングレスポンス実装
+- **プログレッシブウェブアプリ**: iOSとAndroidデバイスへのインストール対応
+- **レスポンシブデザイン**: 最適なモバイル体験のためのCSSメディアクエリ
 
-- **Web Speech API**: Browser-native speech recognition for real-time audio processing
-- **OpenAI API**: Leverages the o3-mini model for high-quality translations
-- **Fetch Streaming**: Implements streaming responses for real-time translation output
-- **Progressive Web App**: Installable on iOS and Android devices
-- **Responsive Design**: CSS Media Queries for optimal mobile experience
+## 利用開始
 
-## Getting Started
+### 必要な準備
 
-### Prerequisites
+- OpenAI APIキー（[こちらで取得](https://platform.openai.com/api-keys)）
+- 最新のモバイルブラウザ（Chrome、Safari、Edge）
 
-- An OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
-- A modern mobile browser (Chrome, Safari, Edge)
+### インストール方法
 
-### Installation
+#### モバイルでPWAとしてインストール:
 
-#### As a PWA on Mobile:
+1. Safari（iOS）またはChrome（Android）でアプリを開く
+2. iPhone/iPad: 共有ボタン → 「ホーム画面に追加」
+3. Android: メニュー → 「ホーム画面に追加」または「アプリをインストール」
 
-1. Open the app in Safari (iOS) or Chrome (Android)
-2. iPhone/iPad: Tap Share button → "Add to Home Screen"
-3. Android: Tap the menu → "Add to Home Screen" or "Install App"
+#### 開発用:
 
-#### For Development:
-
-1. Clone this repository:
+1. このリポジトリをクローン:
    ```bash
    git clone https://github.com/AichiroFunakoshi/voice-translator-mobile.git
    cd voice-translator-mobile
    ```
 
-2. Set up a local HTTPS server (required for microphone access):
+2. ローカルのHTTPSサーバーを起動（マイク アクセスに必要）:
    
-   Using Python:
+   Pythonを使用:
    ```bash
    python3 -m http.server 8443 --ssl
    ```
    
-   Or using Live Server with SSL in VS Code
+   または、VS CodeのLive Server with SSL
 
-3. Open your mobile browser and navigate to your local server's HTTPS URL
+3. モバイルブラウザでローカルサーバーのHTTPS URLを開く
 
-4. Enter your OpenAI API key when prompted on first use
+4. 初回使用時にOpenAI APIキーを入力
 
-### Deployment
+### デプロイ
 
-This application can be deployed to any static hosting service:
+このアプリケーションは以下の静的ホスティングサービスにデプロイできます:
 
 - GitHub Pages
 - Netlify
@@ -75,94 +73,93 @@ This application can be deployed to any static hosting service:
 - Firebase Hosting
 - AWS S3
 
-Remember to ensure your hosting uses HTTPS, as this is required for:
-- Accessing the microphone
-- PWA installation
-- Service worker functionality
+以下の機能に必要なため、HTTPS対応のホスティングを使用してください:
+- マイクへのアクセス
+- PWAインストール
+- Service Worker機能
 
-## Usage
+## 使用方法
 
-1. Tap the "開始" button to start recording in Japanese
-2. Tap the "Start" button to start recording in English
-3. Speak clearly into your device's microphone
-4. See your speech transcribed in real-time in the "Original" section
-5. Watch as the translation appears in the "Translation" section
-6. Tap the "Stop" button when you're finished speaking
-7. Use the font size buttons (A-, A, A+, A++) to adjust text size for easier reading
+1. 「開始」ボタンをタップして日本語録音を開始
+2. 「Start」ボタンをタップして英語録音を開始
+3. デバイスのマイクに向かってはっきりと話す
+4. 「Original」セクションで音声のリアルタイム文字起こしが確認できます
+5. 「Translation」セクションで翻訳結果が表示されます
+6. 「Stop」ボタンをタップして録音を終了
+7. フォントサイズボタン（A-, A, A+, A++）で文字サイズを調整できます
 
-## Mobile-Specific Features
+## モバイル専用機能
 
-- **Responsive Layout**: Buttons stack vertically on narrow screens
-- **Touch-Optimized Controls**: Large tap targets for easy mobile interaction
-- **Portrait Mode**: Optimized for vertical phone orientation
-- **PWA Installation**: Add to home screen for full-screen experience
-- **Mobile Keyboard**: Optimized input fields for mobile keyboards
-- **Gesture Support**: Touch and swipe friendly interface
+- **レスポンシブレイアウト**: 狭い画面でボタンが縦に配列
+- **タッチ最適化コントロール**: モバイル操作に適した大きなタップ領域
+- **縦画面モード**: 携帯電話の縦向きに最適化
+- **PWAインストール**: フルスクリーン体験のためのホーム画面追加
+- **モバイルキーボード**: モバイルキーボードに最適化された入力フィールド
+- **ジェスチャーサポート**: タッチとスワイプに対応したインターフェース
 
-## Browser Compatibility
+## ブラウザ対応状況
 
-- **iOS Safari**: Full support with PWA installation
-- **Chrome (Android)**: Full support with PWA installation
-- **Edge (Android)**: Full support with PWA installation
-- **Samsung Internet**: Full support
-- **Firefox Mobile**: Limited support (no Web Speech API)
+- **iOS Safari**: PWAインストールを含む完全対応
+- **Chrome（Android）**: PWAインストールを含む完全対応
+- **Edge（Android）**: PWAインストールを含む完全対応
+- **Samsung Internet**: 完全対応
+- **Firefox Mobile**: 限定的サポート（Web Speech API非対応）
 
-## Known Limitations
+## 既知の制限事項
 
-- Requires an internet connection for API access
-- Translation quality depends on clear speech and good microphone input
-- Limited to Japanese-English language pair
-- API usage incurs costs based on usage volume
-- Some older mobile browsers may not support all features
+- API利用にはインターネット接続が必要
+- 翻訳品質は明瞭な発話と良好なマイク入力に依存
+- 日本語-英語言語ペアのみ対応
+- API利用料金は使用量に応じて発生
 
-## Customization
+## カスタマイズ
 
-To customize the mobile experience:
+モバイル体験をカスタマイズするには:
 
-1. **Appearance**: Modify the CSS styles in `style.css`
-2. **Touch Targets**: Adjust button sizes in the mobile media queries
-3. **Font Sizes**: Modify the font-size classes for different reading preferences
-4. **PWA Settings**: Update `manifest.json` for your app's metadata
+1. **外観**: `style.css`でCSSスタイルを修正
+2. **タッチターゲット**: モバイルメディアクエリでボタンサイズを調整
+3. **フォントサイズ**: 読み込み頻度に応じてフォントサイズクラスを修正
+4. **PWA設定**: `manifest.json`でアプリのメタデータを更新
 
-## Contributing
+## 貢献
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+プロジェクトへの貢献を歓迎します！プルリクエストはお気軽にお送りください。
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-feature`)
+3. 変更をコミット (`git commit -m 'すごい機能を追加'`)
+4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
+5. プルリクエストを開く
 
-## License
+## ライセンス
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+このプロジェクトはMITライセンスの下でライセンスされています。詳細はLICENSEファイルを参照してください。
 
-## Acknowledgments
+## 謝辞
 
-- OpenAI for providing the translation API
-- Web Speech API for enabling browser-based speech recognition
-- The original Real-time Voice Translator project team
+- 翻訳APIを提供するOpenAI
+- ブラウザベース音声認識を可能にするWeb Speech API
+- オリジナルのリアルタイム音声翻訳アプリプロジェクトチーム
 
-## Troubleshooting
+## トラブルシューティング
 
-### PWA Installation Issues:
-- Ensure your site is served over HTTPS
-- Check that manifest.json is correctly linked
-- Verify all required PWA criteria are met
+### PWAインストールの問題:
+- サイトがHTTPS経由で配信されていることを確認
+- manifest.jsonが正しくリンクされていることを確認
+- 必要なPWA基準を満たしているか確認
 
-### Microphone Access:
-- Allow microphone permissions in browser settings
-- Ensure you're accessing via HTTPS
-- Try refreshing the page if permissions are denied
+### マイクアクセス:
+- ブラウザ設定でマイク権限を許可
+- HTTPS経由でアクセスしていることを確認
+- 権限が拒否された場合はページをリロード
 
-### Speech Recognition:
-- Speak clearly and at a normal pace
-- Ensure background noise is minimal
-- Check your device's microphone settings
+### 音声認識:
+- 明瞭にゆっくりと話す
+- 周囲の騒音を最小限に
+- デバイスのマイク設定を確認
 
 ---
 
-*Note: This application uses API services that may have usage costs. Please check the pricing details for OpenAI API before extensive use.*
+*注意: このアプリケーションは使用料金が発生する可能性のあるAPIサービスを使用しています。広範囲に使用する前にOpenAI APIの料金詳細を確認してください。*
 
-For the latest updates and documentation, visit: [GitHub Repository](https://github.com/AichiroFunakoshi/voice-translator-mobile)
+最新の更新情報とドキュメントについては、[GitHubリポジトリ](https://github.com/AichiroFunakoshi/voice-translator-mobile)をご覧ください。
