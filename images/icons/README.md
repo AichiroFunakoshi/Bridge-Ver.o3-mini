@@ -1,31 +1,33 @@
-# App Icons
+# アプリアイコン
 
-This directory contains all the required icons for the Real-time Voice Translator mobile app.
+このディレクトリには、リアルタイム音声翻訳アプリモバイル版で必要な全てのアイコンが含まれています。
 
-## Required Icon Files
+## 必要なアイコンファイル
 
-Please upload the following icon files in this directory:
+以下のアイコンファイルをこのディレクトリにアップロードする必要があります:
 
-1. `apple-touch-icon-180x180.png` - 180x180 Apple touch icon
-2. `icon-120x120.png` - 120x120 standard icon
-3. `icon-152x152.png` - 152x152 standard icon  
-4. `icon-167x167.png` - 167x167 standard icon
-5. `icon-192x192.png` - 192x192 standard icon (also serves as maskable icon)
-6. `icon-512x512.png` - 512x512 standard icon
+1. `apple-touch-icon-180x180.png` - 180x180 Apple touch アイコン ✅
+2. `icon-120x120.png` - 120x120 標準アイコン ✅
+3. `icon-152x152.png` - 152x152 標準アイコン ✅
+4. `icon-167x167.png` - 167x167 標準アイコン ✅
+5. `icon-192x192.png` - 192x192 標準アイコン（maskableアイコンも兼用）✅
+6. `icon-512x512.png` - 512x512 標準アイコン ✅
 
-## Icon Specifications
+✅ 全てのアイコンがアップロード済みです！
 
-- All icons should be square
-- Format: PNG with transparent background
-- Design: Simple, clear representation of speech translation
-- Recommended design elements: Speech bubbles, translation symbols, language indicators
+## アイコン仕様
 
-## Installation Impact
+- 全てのアイコンは正方形である必要があります
+- 形式: 透明な背景のPNG
+- デザイン: 音声翻訳を表現するシンプルで明確な表現
+- 推奨デザイン要素: 吹き出し、翻訳シンボル、言語インジケーター
 
-These icons are used for:
-- PWA installation on iOS and Android devices  
-- Home screen shortcuts
-- App switcher displays
-- Browser tab favicons
+## インストールへの影響
 
-Once all icons are uploaded, users will be able to install the app on their device home screen.
+これらのアイコンは以下の用途で使用されます:
+- iOSおよびAndroidデバイスでのPWAインストール
+- ホーム画面のショートカット
+- アプリスイッチャーでの表示
+- ブラウザタブのファビコン
+
+全てのアイコンがアップロードされたため、ユーザーはデバイスのホーム画面にアプリをインストールできるようになります。
