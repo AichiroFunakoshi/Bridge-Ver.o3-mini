@@ -17,7 +17,7 @@
 
 ## デモ
 
-[ライブデモを見る](https://aichiroFunakoshi.github.io/voice-translator-mobile/)
+[ライブデモを見る](https://aichirofunakoshi.github.io/Bridge-Ver.o3-mini/)
 
 ## 使用技術
 
@@ -46,8 +46,8 @@
 
 1. このリポジトリをクローン:
    ```bash
-   git clone https://github.com/AichiroFunakoshi/voice-translator-mobile.git
-   cd voice-translator-mobile
+   git clone https://github.com/AichiroFunakoshi/Bridge-Ver.o3-mini.git
+   cd Bridge-Ver.o3-mini
    ```
 
 2. ローカルのHTTPSサーバーを起動（マイク アクセスに必要）:
@@ -162,4 +162,4 @@
 
 *注意: このアプリケーションは使用料金が発生する可能性のあるAPIサービスを使用しています。広範囲に使用する前にOpenAI APIの料金詳細を確認してください。*
 
-最新の更新情報とドキュメントについては、[GitHubリポジトリ](https://github.com/AichiroFunakoshi/voice-translator-mobile)をご覧ください。
+最新の更新情報とドキュメントについては、[GitHubリポジトリ](https://github.com/AichiroFunakoshi/Bridge-Ver.o3-mini)をご覧ください。
